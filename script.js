@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ═══════════════════════════════════════════════════════
     //  DOM REFERENCES
-    // ═══════════════════════════════════════════════════════
 
     // Sidebar nav buttons (desktop)
     const navBtns = document.querySelectorAll('[id^="nav-"]');
@@ -57,9 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // State
     let currentCalculation = null; // holds last computed result
 
-    // ═══════════════════════════════════════════════════════
     //  SECTION SWITCHING
-    // ═══════════════════════════════════════════════════════
 
     function switchSection(targetId) {
         // Hide all sections
@@ -99,9 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize: show convert section
     switchSection('section-convert');
 
-    // ═══════════════════════════════════════════════════════
     //  SHARED UTILS
-    // ═══════════════════════════════════════════════════════
 
     const calcPercentage = (gpa) => Math.max(0, Math.min(100, (gpa - 0.75) * 10)).toFixed(2);
 
@@ -120,9 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { el.style.borderColor = ''; }, 1600);
     }
 
-    // ═══════════════════════════════════════════════════════
     //  CONVERT SECTION
-    // ═══════════════════════════════════════════════════════
 
     function doConvert() {
         const gpa = parseFloat(directCgpaInput.value);
@@ -139,9 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnConvert.addEventListener('click', doConvert);
     directCgpaInput.addEventListener('keydown', e => { if (e.key === 'Enter') doConvert(); });
 
-    // ═══════════════════════════════════════════════════════
     //  GRADE CALCULATOR — Course rows
-    // ═══════════════════════════════════════════════════════
 
     const courseRowTemplate = () => `
         <div class="course-item grid grid-cols-12 gap-2 items-center">
@@ -151,21 +141,22 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="col-span-3">
                 <input type="number" min="0" step="1" class="course-credit w-full px-2 py-2 text-sm text-center bg-white border border-[#ECEAE5] rounded-lg focus:border-[#1A1918] focus:ring-1 focus:ring-[#1A1918]/10 outline-none placeholder:text-[#D6D4D0] transition-colors" placeholder="Cr">
             </div>
-            <div class="col-span-3 sm:col-span-2 relative">
-                <select class="course-grade w-full pl-2 pr-6 py-2 text-sm bg-white border border-[#ECEAE5] rounded-lg focus:border-[#1A1918] outline-none appearance-none cursor-pointer text-[#1A1918] transition-colors">
-                    <option value="" disabled selected>—</option>
-                    <option value="AA">AA</option>
-                    <option value="AB">AB</option>
-                    <option value="BB">BB</option>
-                    <option value="BC">BC</option>
-                    <option value="CC">CC</option>
-                    <option value="CD">CD</option>
-                    <option value="DD">DD</option>
-                    <option value="FF">FF</option>
-                </select>
-                <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center text-[#C8C6C2]">
-                    <i class="fa-solid fa-chevron-down text-[8px]"></i>
+            <div class="col-span-3 sm:col-span-2 relative custom-dropdown">
+                <input type="hidden" class="course-grade" value="">
+                <div class="dropdown-trigger w-full px-2 py-2 text-sm bg-white border border-[#ECEAE5] rounded-lg cursor-pointer flex justify-between items-center transition-colors">
+                    <span class="dropdown-label text-[#C8C6C2]">—</span>
+                    <i class="fa-solid fa-chevron-down text-[8px] text-[#C8C6C2]"></i>
                 </div>
+                <ul class="dropdown-menu absolute z-50 left-0 right-0 top-full mt-1 bg-white border border-[#ECEAE5] rounded-lg shadow-lg hidden py-1">
+                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="AA">AA</li>
+                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="AB">AB</li>
+                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="BB">BB</li>
+                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="BC">BC</li>
+                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="CC">CC</li>
+                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="CD">CD</li>
+                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="DD">DD</li>
+                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="FF">FF</li>
+                </ul>
             </div>
             <div class="col-span-1 flex justify-center">
                 <button class="btn-remove-course text-[#D6D4D0] hover:text-red-400 transition-colors p-1">
@@ -189,8 +180,44 @@ document.addEventListener('DOMContentLoaded', () => {
             item.remove();
         } else {
             item.querySelectorAll('input').forEach(i => i.value = '');
-            item.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+            const dropdownInput = item.querySelector('.course-grade');
+            if (dropdownInput) {
+                dropdownInput.value = '';
+                const label = item.querySelector('.dropdown-label');
+                if (label) {
+                    label.textContent = '—';
+                    label.classList.remove('text-[#1A1918]');
+                    label.classList.add('text-[#C8C6C2]');
+                }
+            }
         }
+    });
+
+    // Custom dropdown event delegation
+    document.addEventListener('click', e => {
+        const trigger = e.target.closest('.dropdown-trigger');
+        if (trigger) {
+            document.querySelectorAll('.dropdown-menu:not(.hidden)').forEach(m => {
+                if (m !== trigger.nextElementSibling) m.classList.add('hidden');
+            });
+            trigger.nextElementSibling.classList.toggle('hidden');
+            return;
+        }
+
+        const option = e.target.closest('.dropdown-menu li');
+        if (option) {
+            const val = option.dataset.value;
+            const container = option.closest('.custom-dropdown');
+            container.querySelector('.course-grade').value = val;
+            const label = container.querySelector('.dropdown-label');
+            label.textContent = val;
+            label.classList.remove('text-[#C8C6C2]');
+            label.classList.add('text-[#1A1918]');
+            option.closest('.dropdown-menu').classList.add('hidden');
+            return;
+        }
+
+        document.querySelectorAll('.dropdown-menu:not(.hidden)').forEach(m => m.classList.add('hidden'));
     });
 
     // ─── Calculate GPA ───────────────────────────────────────
@@ -232,9 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
         calcResultContainer.classList.add('fade-up');
     });
 
-    // ═══════════════════════════════════════════════════════
     //  CGPA COMBINER SECTION
-    // ═══════════════════════════════════════════════════════
 
     function refreshCgpaSemesterList() {
         const records   = getRecords();
@@ -378,9 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cgpaResultContainer.classList.add('fade-up');
     }
 
-    // ═══════════════════════════════════════════════════════
     //  SAVE RECORDS
-    // ═══════════════════════════════════════════════════════
 
     function saveRecord(nameInput, saveBtn) {
         const name = nameInput.value.trim();
@@ -439,9 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnSaveCalc.addEventListener('click',   () => saveRecord(saveNameCalc, btnSaveCalc));
     btnSaveCgpa.addEventListener('click',   () => saveRecord(saveNameCgpa, btnSaveCgpa));
 
-    // ═══════════════════════════════════════════════════════
     //  SIDEBAR RECENT RECORDS
-    // ═══════════════════════════════════════════════════════
 
     function loadSidebarRecords() {
         const records = getRecords();
@@ -488,9 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadSidebarRecords();
     };
 
-    // ═══════════════════════════════════════════════════════
     //  MOBILE REFERENCE DRAWER TOGGLE
-    // ═══════════════════════════════════════════════════════
 
     if (btnToggleRef && mobileRefDrawer) {
         btnToggleRef.addEventListener('click', () => {
@@ -503,8 +522,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ═══════════════════════════════════════════════════════
     //  INIT
-    // ═══════════════════════════════════════════════════════
     loadSidebarRecords();
 });

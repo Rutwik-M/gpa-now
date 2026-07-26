@@ -8,19 +8,19 @@
     <meta name="keywords" content="CGPA calculator, SGPA calculator, grade calculator, CGPA to percentage, college GPA, semester grades, university grades, student tools">
     <meta name="author" content="GradeMaster">
     
-    <!-- Open Graph / Social Media Meta Tags -->
+    
     <meta property="og:title" content="GradeMaster — CGPA & SGPA Calculator">
     <meta property="og:description" content="Elegant CGPA and SGPA calculator with percentage conversion, semester records, and CGPA combiner.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="/static/web-app-manifest-512x512.png">
     
-    <!-- Twitter Card Meta Tags -->
+    
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="GradeMaster — CGPA & SGPA Calculator">
     <meta name="twitter:description" content="Elegant CGPA and SGPA calculator with percentage conversion, semester records, and CGPA combiner.">
     <meta name="twitter:image" content="/static/web-app-manifest-512x512.png">
     
-    <!-- Favicon -->
+    
     <link rel="icon" type="image/png" href="/static/favicon-96x96.png" sizes="96x96">
     <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
     <link rel="shortcut icon" href="/static/favicon.ico">
@@ -37,7 +37,7 @@
 <div class="flex-1 flex flex-col lg:flex-row overflow-hidden">
     <aside class="hidden lg:flex flex-col w-56 xl:w-64 flex-shrink-0 border-r border-[#ECEAE5] bg-white overflow-hidden">
 
-        <!-- Logo -->
+        
         <div class="px-4 pt-5 pb-3 border-b border-[#F0EEE9] flex-shrink-0">
             <h1 class="text-base font-playfair font-semibold text-[#1A1918] tracking-tight leading-none">
                 GradeMaster<span class="text-[#C8C6C2]">.</span>
@@ -45,7 +45,7 @@
             <p class="text-[9px] text-[#C8C6C2] uppercase tracking-[0.18em] mt-1">CGPA &amp; SGPA</p>
         </div>
 
-        <!-- Navigation -->
+        
         <nav class="px-2 py-3 border-b border-[#F0EEE9] flex-shrink-0">
             <button class="sidebar-btn sidebar-btn-active" id="nav-convert" data-section="section-convert">
                 <i class="fa-solid fa-percent text-[10px] w-3.5 text-center"></i> Convert %
@@ -58,7 +58,7 @@
             </button>
         </nav>
 
-        <!-- Recent Records (fills remaining space, scrolls if needed) -->
+        
         <div class="flex-1 flex flex-col min-h-0 overflow-hidden px-3 py-3">
             <div class="flex items-center justify-between mb-2 flex-shrink-0">
                 <span class="text-[10px] font-semibold text-[#C8C6C2] uppercase tracking-[0.15em]">Recent</span>
@@ -74,10 +74,10 @@
     </aside>
     <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
 
-        <!-- Mobile Header (hidden on desktop) -->
+        
         <header class="lg:hidden flex-shrink-0 flex items-center justify-between px-4 pt-4 pb-3 bg-white border-b border-[#ECEAE5]">
             <h1 class="text-lg font-playfair font-semibold text-[#1A1918]">GradeMaster<span class="text-[#C8C6C2]">.</span></h1>
-            <!-- Mobile pill tabs -->
+            
             <div class="flex bg-[#EEECE7] p-[3px] rounded-xl gap-[2px]">
                 <button class="mob-tab mob-tab-active px-3 py-1.5 rounded-lg text-[11px] font-medium" id="mob-tab-convert" data-section="section-convert">
                     <i class="fa-solid fa-percent"></i>
@@ -91,10 +91,10 @@
             </div>
         </header>
 
-        <!-- Section Container — absolute-positioned panels switch here -->
+        
         <div class="flex-1 relative overflow-hidden bg-[#FAFAF7]">
 
-            <!-- ─── SECTION: CONVERT % ─────────────────────────────── -->
+            
             <section id="section-convert" class="absolute inset-0 flex flex-col overflow-y-auto custom-scrollbar">
                 <div class="flex-1 flex flex-col items-center justify-center px-6 sm:px-12 py-10 min-h-[300px]">
 
@@ -113,13 +113,13 @@
                         <p class="text-[9px] text-[#C8C6C2]">or press Enter ↵</p>
                     </div>
 
-                    <!-- Result panel (revealed after conversion) -->
+                    
                     <div id="convert-result-container" class="w-full max-w-xs mt-7 hidden">
                         <div class="result-chip mb-4">
                             <p class="text-[9px] font-semibold text-[#C8C6C2] uppercase tracking-[0.2em] mb-2">Equivalent Percentage</p>
                             <p id="convert-percentage-value" class="text-5xl font-playfair text-[#1A1918]">—</p>
                         </div>
-                        <!-- Optional credits row -->
+                        
                         <div class="flex items-center gap-2 mb-3">
                             <input type="number" id="convert-credits" min="1" step="1"
                                 class="w-24 px-3 py-2 text-sm text-center bg-white border border-[#E0DED9] rounded-xl focus:border-[#1A1918] focus:ring-1 focus:ring-[#1A1918]/20 outline-none placeholder:text-[#D6D4D0]"
@@ -139,10 +139,10 @@
                 </div>
             </section>
 
-            <!-- ─── SECTION: GRADE CALCULATOR ────────────────────── -->
+            
             <section id="section-calculate" class="absolute inset-0 hidden flex-col overflow-hidden">
 
-                <!-- Fixed header -->
+                
                 <div class="flex-shrink-0 flex items-center justify-between px-5 sm:px-8 pt-4 pb-3 border-b border-[#ECEAE5] bg-[#FAFAF7]">
                     <h2 class="font-semibold text-[#1A1918] text-sm">Grade Calculator</h2>
                     <button id="btn-add-course"
@@ -151,7 +151,7 @@
                     </button>
                 </div>
 
-                <!-- Fixed column headers -->
+                
                 <div class="flex-shrink-0 grid grid-cols-12 gap-2 px-5 sm:px-8 py-2 text-[9px] font-semibold text-[#C8C6C2] uppercase tracking-[0.14em] bg-[#FAFAF7]">
                     <div class="col-span-5 sm:col-span-6">Course</div>
                     <div class="col-span-3 text-center">Credits</div>
@@ -159,10 +159,10 @@
                     <div class="col-span-1"></div>
                 </div>
 
-                <!-- Scrollable course list -->
+                
                 <div class="flex-1 overflow-y-auto custom-scrollbar min-h-0 px-5 sm:px-8">
                     <div id="course-list" class="space-y-2 py-2">
-                        <!-- Default course row -->
+                        
                         <div class="course-item grid grid-cols-12 gap-2 items-center">
                             <div class="col-span-5 sm:col-span-6">
                                 <input type="text" class="course-name w-full px-2.5 py-2 text-sm bg-white border border-[#ECEAE5] rounded-lg focus:border-[#1A1918] focus:ring-1 focus:ring-[#1A1918]/10 outline-none placeholder:text-[#D6D4D0] transition-colors" placeholder="Subject">
@@ -170,21 +170,22 @@
                             <div class="col-span-3">
                                 <input type="number" min="0" step="1" class="course-credit w-full px-2 py-2 text-sm text-center bg-white border border-[#ECEAE5] rounded-lg focus:border-[#1A1918] focus:ring-1 focus:ring-[#1A1918]/10 outline-none placeholder:text-[#D6D4D0] transition-colors" placeholder="Cr">
                             </div>
-                            <div class="col-span-3 sm:col-span-2 relative">
-                                <select class="course-grade w-full pl-2 pr-6 py-2 text-sm bg-white border border-[#ECEAE5] rounded-lg focus:border-[#1A1918] outline-none appearance-none cursor-pointer text-[#1A1918] transition-colors">
-                                    <option value="" disabled selected>—</option>
-                                    <option value="AA">AA</option>
-                                    <option value="AB">AB</option>
-                                    <option value="BB">BB</option>
-                                    <option value="BC">BC</option>
-                                    <option value="CC">CC</option>
-                                    <option value="CD">CD</option>
-                                    <option value="DD">DD</option>
-                                    <option value="FF">FF</option>
-                                </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center text-[#C8C6C2]">
-                                    <i class="fa-solid fa-chevron-down text-[8px]"></i>
+                            <div class="col-span-3 sm:col-span-2 relative custom-dropdown">
+                                <input type="hidden" class="course-grade" value="">
+                                <div class="dropdown-trigger w-full px-2 py-2 text-sm bg-white border border-[#ECEAE5] rounded-lg cursor-pointer flex justify-between items-center transition-colors">
+                                    <span class="dropdown-label text-[#C8C6C2]">—</span>
+                                    <i class="fa-solid fa-chevron-down text-[8px] text-[#C8C6C2]"></i>
                                 </div>
+                                <ul class="dropdown-menu absolute z-50 left-0 right-0 top-full mt-1 bg-white border border-[#ECEAE5] rounded-lg shadow-lg hidden py-1">
+                                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="AA">AA</li>
+                                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="AB">AB</li>
+                                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="BB">BB</li>
+                                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="BC">BC</li>
+                                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="CC">CC</li>
+                                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="CD">CD</li>
+                                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="DD">DD</li>
+                                    <li class="px-3 py-1.5 text-sm hover:bg-[#F5F4F0] cursor-pointer transition-colors" data-value="FF">FF</li>
+                                </ul>
                             </div>
                             <div class="col-span-1 flex justify-center">
                                 <button class="btn-remove-course text-[#D6D4D0] hover:text-red-400 transition-colors p-1">
@@ -195,7 +196,7 @@
                     </div>
                 </div>
 
-                <!-- Fixed footer: button + result + save -->
+                
                 <div class="flex-shrink-0 border-t border-[#ECEAE5] bg-[#FAFAF7] px-5 sm:px-8 pt-3 pb-4 space-y-3">
                     <button id="btn-calculate"
                         class="w-full bg-[#1A1918] hover:bg-[#2C2A28] active:scale-[0.99] text-white font-medium py-2.5 rounded-xl text-sm transition-all shadow-sm">
@@ -230,16 +231,16 @@
                 </div>
             </section>
 
-            <!-- ─── SECTION: CGPA COMBINER ─────────────────────── -->
+            
             <section id="section-cgpa" class="absolute inset-0 hidden flex-col overflow-hidden">
 
-                <!-- Fixed header -->
+                
                 <div class="flex-shrink-0 px-5 sm:px-8 pt-4 pb-3 border-b border-[#ECEAE5] bg-[#FAFAF7]">
                     <h2 class="font-semibold text-[#1A1918] text-sm">CGPA Combiner</h2>
                     <p class="text-xs text-[#8C8984] mt-0.5">Select saved semesters to compute cumulative GPA</p>
                 </div>
 
-                <!-- Scrollable semester list -->
+                
                 <div class="flex-1 overflow-y-auto custom-scrollbar min-h-0 px-5 sm:px-8 py-3">
                     <div id="cgpa-semester-list">
                         <div class="flex flex-col items-center justify-center py-12 text-center">
@@ -250,7 +251,7 @@
                     </div>
                 </div>
 
-                <!-- Fixed footer: live result + save -->
+                
                 <div class="flex-shrink-0 border-t border-[#ECEAE5] bg-[#FAFAF7] px-5 sm:px-8 pt-3 pb-4 space-y-3">
                     <p id="cgpa-no-selection" class="text-xs text-[#C8C6C2] text-center py-1">Select semesters above to see combined CGPA</p>
                     <div id="cgpa-result-container" class="hidden space-y-3">
@@ -282,7 +283,7 @@
             </section>
         </div>
 
-        <!-- Mobile Bottom Bar (hidden on desktop) -->
+        
         <div class="lg:hidden flex-shrink-0 border-t border-[#ECEAE5] bg-white flex flex-col">
             <div class="flex items-center gap-2 px-4 py-2.5">
                 <a href="history.html"
@@ -297,7 +298,7 @@
             </div>
         </div>
 
-        <!-- Mobile Reference Drawer (hidden on desktop) -->
+        
         <div id="mobile-ref-drawer" class="hidden lg:hidden flex-shrink-0 bg-white border-t border-[#ECEAE5] px-4 py-4 overflow-y-auto custom-scrollbar" style="max-height:230px;">
             <div class="grid grid-cols-2 gap-4 text-[10px]">
                 <div>
@@ -321,21 +322,19 @@
                 </div>
             </div>
         </div>
-    </div><!-- /center -->
+    </div>
 
-    <!-- ════════════════════════════════════════════════════════
-         RIGHT COLUMN — Reference (desktop only, hidden on mobile)
-    ════════════════════════════════════════════════════════════ -->
+    
     <aside class="hidden lg:flex flex-col w-56 xl:w-64 flex-shrink-0 border-l border-[#ECEAE5] bg-white overflow-hidden">
 
         <div class="px-4 pt-5 pb-3 border-b border-[#F0EEE9] flex-shrink-0">
             <span class="text-[10px] font-semibold text-[#C8C6C2] uppercase tracking-[0.15em]">Reference</span>
         </div>
 
-        <!-- All reference content — no scroll needed at typical viewport heights -->
+        
         <div class="flex-1 px-4 py-4 space-y-4 overflow-y-auto custom-scrollbar min-h-0">
 
-            <!-- Formulas -->
+            
             <div>
                 <p class="text-[10px] font-semibold text-[#C8C6C2] uppercase tracking-[0.15em] mb-2">Formulas</p>
                 <div class="text-xs space-y-0">
@@ -354,7 +353,7 @@
                 </div>
             </div>
 
-            <!-- Grade Scale — 4-col chips, compact -->
+            
             <div>
                 <p class="text-[10px] font-semibold text-[#C8C6C2] uppercase tracking-[0.15em] mb-2">Grade Scale</p>
                 <div class="grid grid-cols-4 gap-1">
@@ -369,7 +368,7 @@
                 </div>
             </div>
 
-            <!-- GPA → % Quick Reference -->
+            
             <div>
                 <p class="text-[10px] font-semibold text-[#C8C6C2] uppercase tracking-[0.15em] mb-2">GPA → %</p>
                 <div class="text-xs space-y-0">
@@ -384,9 +383,8 @@
         </div>
     </aside>
 
-</div><!-- /app-shell -->
+</div>
 
-<!-- Global Footer -->
 <footer class="w-full py-2 flex-shrink-0 text-center z-50">
     <p class="text-[10px] text-[#8C8984]">Made with ❤️ by <a href="https://rutwik-m.is-a.dev/" target="_blank" class="font-semibold text-[#1A1918] hover:underline">Rutwik M</a></p>
 </footer>
