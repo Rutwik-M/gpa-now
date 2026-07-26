@@ -5,6 +5,11 @@
 /* Always contain app in viewport — no page scroll */
 html, body { height: 100%; overflow: hidden; }
 
+/* Desktop base scaling (110%) */
+@media (min-width: 1024px) {
+    html { font-size: 110%; }
+}
+
 /* Font helpers */
 .font-playfair { font-family: 'Playfair Display', serif; }
 .font-dm-sans  { font-family: 'DM Sans', sans-serif; }
