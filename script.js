@@ -126,6 +126,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         convertResultContainer.classList.remove('hidden');
         convertResultContainer.classList.add('fade-up');
+
+        // Check if appreciation modal should be shown
+        if (!localStorage.getItem('hasSeenAppreciation')) {
+            setTimeout(() => {
+                const modal = document.getElementById('appreciation-modal');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    const close = () => {
+                        modal.classList.add('hidden');
+                        localStorage.setItem('hasSeenAppreciation', 'true');
+                    };
+                    document.getElementById('btn-support-later').onclick = close;
+                    document.getElementById('btn-support-follow').onclick = close;
+                    document.getElementById('appreciation-modal-bg').onclick = close;
+                }
+            }, 800); // 800ms delay after conversion
+        }
     }
 
     btnConvert.addEventListener('click', doConvert);
