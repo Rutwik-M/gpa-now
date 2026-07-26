@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradeMaster — Records History</title>
+    <meta name="description" content="View your saved CGPA and SGPA records in GradeMaster.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="h-full bg-[#FAFAF7] text-[#1A1918] font-dm-sans antialiased">
+
+<div class="h-full flex flex-col max-w-2xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6 pb-4">
+
+    <!-- Header -->
+    <header class="flex-shrink-0 flex items-center justify-between mb-4">
+        <div class="flex items-center gap-3">
+            <a href="index.html"
+                class="flex items-center justify-center w-8 h-8 rounded-lg border border-[#E0DED9] bg-white hover:border-[#1A1918] transition-colors text-[#6B6965] hover:text-[#1A1918]">
+                <i class="fa-solid fa-arrow-left text-xs"></i>
+            </a>
+            <div>
+                <h1 class="text-xl font-playfair font-semibold text-[#1A1918] leading-tight">Records</h1>
+                <p class="text-[9px] text-[#C8C6C2] uppercase tracking-[0.2em]">All saved computations</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2">
+            <span id="history-count" class="text-[10px] font-semibold text-[#8C8984] bg-[#F0EEE9] px-3 py-1 rounded-full">0 records</span>
+            <button id="btn-clear-all" class="hidden text-[10px] font-medium text-red-400 hover:text-red-600 px-3 py-1 border border-red-200 hover:border-red-400 rounded-full transition-colors">
+                Clear All
+            </button>
+        </div>
+    </header>
+
+    <!-- Records list -->
+    <main class="flex-1 overflow-hidden flex flex-col min-h-0">
+        <div class="flex-1 bg-white border border-[#ECEAE5] rounded-xl overflow-hidden flex flex-col" style="box-shadow: 0 1px 3px rgba(0,0,0,0.04)">
+            <!-- Column headers -->
+            <div class="flex-shrink-0 grid grid-cols-12 gap-2 px-5 py-3 text-[9px] font-semibold text-[#C8C6C2] uppercase tracking-[0.14em] border-b border-[#F0EEE9]">
+                <div class="col-span-1"></div>
+                <div class="col-span-4">Name</div>
+                <div class="col-span-2 text-center">Type</div>
+                <div class="col-span-2 text-center">GPA</div>
+                <div class="col-span-2 text-center">%</div>
+                <div class="col-span-1 text-right">Del</div>
+            </div>
+            <div id="history-records-list" class="flex-1 overflow-y-auto custom-scrollbar divide-y divide-[#F8F7F4] min-h-0">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="history.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+/* ═══════════════════════════════════════════
+   GradeMaster — Global Styles
+   ═══════════════════════════════════════════ */
+
+/* Always contain app in viewport — no page scroll */
+html, body { height: 100%; overflow: hidden; }
+
+/* Font helpers */
+.font-playfair { font-family: 'Playfair Display', serif; }
+.font-dm-sans  { font-family: 'DM Sans', sans-serif; }
+
+/* ── Paper card ──────────────────────────── */
+.paper-card {
+    background: #ffffff;
+    border: 1px solid #ECEAE5;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+    border-radius: 12px;
+}
+
+/* ── Sidebar ─────────────────────────────── */
+.sidebar-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 7px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6B6965;
+    text-align: left;
+    transition: background 0.12s, color 0.12s;
+    margin-bottom: 2px;
+}
+.sidebar-btn:hover { background: #F5F4F0; color: #1A1918; }
+.sidebar-btn-active { background: #EEECEA; color: #1A1918; font-weight: 600; }
+
+/* ── Grade chips (sidebar reference) ─────── */
+.grade-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 3px;
+    background: #F8F7F4;
+    border: 1px solid #ECEAE5;
+    border-radius: 7px;
+    font-size: 10px;
+    line-height: 1.4;
+    transition: background 0.12s;
+}
+
+/* ── Result chip ─────────────────────────── */
+.result-chip {
+    background: #F5F4F0;
+    border: 1px solid #ECEAE5;
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-align: center;
+}
+
+/* ── Scrollbar (slim) ────────────────────── */
+.custom-scrollbar { scrollbar-width: thin; scrollbar-color: #D6D4D0 transparent; }
+.custom-scrollbar::-webkit-scrollbar { width: 3px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #D6D4D0; border-radius: 10px; }
+
+/* ── Animations ──────────────────────────── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.22s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+@keyframes slideDown {
+    from { opacity: 0; max-height: 0; }
+    to   { opacity: 1; max-height: 500px; }
+}
+.slide-down { animation: slideDown 0.25s ease forwards; }
+
+/* ── Record hover ────────────────────────── */
+.record-row { transition: background 0.12s; border-radius: 8px; }
+.record-row:hover { background: #FAF9F6; }
+
+/* ── Course item — reveal delete on hover ── */
+.course-item .btn-remove-course { opacity: 0; transition: opacity 0.15s; }
+.course-item:hover .btn-remove-course { opacity: 1; }
+
+/* ── Mobile tab pills ────────────────────── */
+.mob-tab { transition: all 0.15s; }
+.mob-tab-active { background: #fff; color: #1A1918; box-shadow: 0 1px 3px rgba(0,0,0,0.10); }
+
+/* ── Number input: remove arrows ─────────── */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; }
+
+/* ── Large GPA input underline ───────────── */
+.input-underline {
+    border-bottom: 2px solid #E0DED9;
+    outline: none;
+    transition: border-color 0.18s;
+    background: transparent;
+}
+.input-underline:focus { border-color: #1A1918; }
+
+/* ── Semester checkbox row ───────────────── */
+.sem-row { transition: background 0.12s; }
+.sem-row:hover { background: #FAF9F6; }
+.sem-row.selected { background: #F0EEE9; }
+
+/* ── Expandable detail panel ─────────────── */
+.detail-panel { border-top: 1px solid #F0EEE9; }
+
+/* ── Badge ───────────────────────────────── */
+.badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700;
+    color: #fff; background: #1A1918;
+    width: 18px; height: 18px; border-radius: 50%;
+    line-height: 1;
+}
+.badge-sm {
+    font-size: 9px; font-weight: 600;
+    padding: 1px 6px; border-radius: 20px;
+    border: 1px solid currentColor;
+}

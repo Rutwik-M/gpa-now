@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradeMaster — CGPA & SGPA Calculator</title>
+    <meta name="description" content="Elegant and accurate CGPA and SGPA calculator. Easily calculate your college grades, convert CGPA to percentage, manage semester records, and combine multiple semesters.">
+    <meta name="keywords" content="CGPA calculator, SGPA calculator, grade calculator, CGPA to percentage, college GPA, semester grades, university grades, student tools">
+    <meta name="author" content="GradeMaster">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="GradeMaster — CGPA & SGPA Calculator">
+    <meta property="og:description" content="Elegant CGPA and SGPA calculator with percentage conversion, semester records, and CGPA combiner.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/favicon.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="GradeMaster — CGPA & SGPA Calculator">
+    <meta name="twitter:description" content="Elegant CGPA and SGPA calculator with percentage conversion, semester records, and CGPA combiner.">
+    <meta name="twitter:image" content="/favicon.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="h-full bg-[#FAFAF7] text-[#1A1918] font-dm-sans antialiased">
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  3-COLUMN SHELL: Left nav | Center calc | Right reference   ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<div class="h-full flex flex-col lg:flex-row">
+
+    <!-- ════════════════════════════════════════════════════════
+         LEFT SIDEBAR — Logo · Navigation · Recent Records
+         (hidden on mobile, shown on desktop)
+    ════════════════════════════════════════════════════════════ -->
+    <aside class="hidden lg:flex flex-col w-56 xl:w-64 flex-shrink-0 border-r border-[#ECEAE5] bg-white overflow-hidden">
+
+        <!-- Logo -->
+        <div class="px-4 pt-5 pb-3 border-b border-[#F0EEE9] flex-shrink-0">
+            <h1 class="text-base font-playfair font-semibold text-[#1A1918] tracking-tight leading-none">
+                GradeMaster<span class="text-[#C8C6C2]">.</span>
+            </h1>
+            <p class="text-[9px] text-[#C8C6C2] uppercase tracking-[0.18em] mt-1">CGPA &amp; SGPA</p>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="px-2 py-3 border-b border-[#F0EEE9] flex-shrink-0">
+            <button class="sidebar-btn sidebar-btn-active" id="nav-convert" data-section="section-convert">
+                <i class="fa-solid fa-percent text-[10px] w-3.5 text-center"></i> Convert %
+            </button>
+            <button class="sidebar-btn" id="nav-calculate" data-section="section-calculate">
+                <i class="fa-solid fa-list-check text-[10px] w-3.5 text-center"></i> Grade Calc
+            </button>
+            <button class="sidebar-btn" id="nav-cgpa" data-section="section-cgpa">
+                <i class="fa-solid fa-layer-group text-[10px] w-3.5 text-center"></i> CGPA Combine
+            </button>
+        </nav>
+
+        <!-- Recent Records (fills remaining space, scrolls if needed) -->
+        <div class="flex-1 flex flex-col min-h-0 overflow-hidden px-3 py-3">
+            <div class="flex items-center justify-between mb-2 flex-shrink-0">
+                <span class="text-[10px] font-semibold text-[#C8C6C2] uppercase tracking-[0.15em]">Recent</span>
+                <div class="flex items-center gap-1.5">
+                    <span id="saved-count" class="badge">0</span>
+                    <a href="history.html" class="text-[10px] font-semibold text-[#8C8984] hover:text-[#1A1918] transition-colors">All →</a>
+                </div>
+            </div>
+            <div id="saved-records-list" class="flex-1 overflow-y-auto custom-scrollbar min-h-0 space-y-0.5">
+                <p class="text-[10px] text-[#C8C6C2] italic py-4 text-center">No saved records.</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ════════════════════════════════════════════════════════
+         CENTER — Calculator Sections (full width on mobile)
+    ════════════════════════════════════════════════════════════ -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+        <!-- Mobile Header (hidden on desktop) -->
+        <header class="lg:hidden flex-shrink-0 flex items-center justify-between px-4 pt-4 pb-3 bg-white border-b border-[#ECEAE5]">
+            <h1 class="text-lg font-playfair font-semibold text-[#1A1918]">GradeMaster<span class="text-[#C8C6C2]">.</span></h1>
+            <!-- Mobile pill tabs -->
+            <div class="flex bg-[#EEECE7] p-[3px] rounded-xl gap-[2px]">
+                <button class="mob-tab mob-tab-active px-3 py-1.5 rounded-lg text-[11px] font-medium" id="mob-tab-convert" data-section="section-convert">
+                    <i class="fa-solid fa-percent"></i>
+                </button>
+                <button class="mob-tab text-[#8C8984] px-3 py-1.5 rounded-lg text-[11px] font-medium" id="mob-tab-calculate" data-section="section-calculate">
+                    <i class="fa-solid fa-list-check"></i>
+                </button>
+                <button class="mob-tab text-[#8C8984] px-3 py-1.5 rounded-lg text-[11px] font-medium" id="mob-tab-cgpa" data-section="section-cgpa">
+                    <i class="fa-solid fa-layer-group"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Section Container — absolute-positioned panels switch here -->
+        <div class="flex-1 relative overflow-hidden bg-[#FAFAF7]">
+
+            <!-- ─── SECTION: CONVERT % ─────────────────────────────── -->
+            <section id="section-convert" class="absolute inset-0 flex flex-col overflow-y-auto custom-scrollbar">
+                <div class="flex-1 flex flex-col items-center justify-center px-6 sm:px-12 py-10 min-h-[300px]">
+
+                    <div class="w-full max-w-xs text-center">
+                        <p class="text-[9px] font-semibold text-[#C8C6C2] uppercase tracking-[0.2em] mb-5">Enter CGPA / SGPA</p>
+
+                        <input type="number" id="direct-cgpa" step="0.01" min="0" max="10" autocomplete="off"
+                            class="input-underline w-full text-center text-6xl font-playfair py-2 mb-1 placeholder:text-[#E8E6E1]"
+                            placeholder="0.00">
+                        <p class="text-[10px] text-[#C8C6C2] mb-7">on a 10.0 point scale</p>
+
+                        <button id="btn-convert"
+                            class="w-full bg-[#1A1918] hover:bg-[#2C2A28] active:scale-[0.99] text-white font-medium py-3 rounded-xl text-sm transition-all shadow-sm mb-2">
+                            Convert to Percentage
+                        </button>
+                        <p class="text-[9px] text-[#C8C6C2]">or press Enter ↵</p>
+                    </div>
+
+                    <!-- Result panel (revealed after conversion) -->
+                    <div id="convert-result-container" class="w-full max-w-xs mt-7 hidden">
+                        <div class="result-chip mb-4">
+                            <p class="text-[9px] font-semibold text-[#C8C6C2] uppercase tracking-[0.2em] mb-2">Equivalent Percentage</p>
+                            <p id="convert-percentage-value" class="text-5xl font-playfair text-[#1A1918]">—</p>
+                        </div>
+                        <!-- Optional credits row -->
+                        <div class="flex items-center gap-2 mb-3">
+                            <input type="number" id="convert-credits" min="1" step="1"
+                                class="w-24 px-3 py-2 text-sm text-center bg-white border border-[#E0DED9] rounded-xl focus:border-[#1A1918] focus:ring-1 focus:ring-[#1A1918]/20 outline-none placeholder:text-[#D6D4D0]"
+                                placeholder="e.g. 20">
+                            <span class="text-[10px] text-[#C8C6C2] leading-tight">credits <span class="italic">(optional)</span><br>needed for CGPA combine</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <input type="text" id="save-name-convert"
+                                class="flex-1 min-w-0 px-3 py-2.5 text-sm bg-white border border-[#E0DED9] rounded-xl focus:border-[#1A1918] focus:ring-1 focus:ring-[#1A1918]/20 outline-none placeholder:text-[#C8C6C2]"
+                                placeholder="Label — e.g. Sem 3">
+                            <button id="btn-save-convert"
+                                class="px-4 py-2.5 text-sm font-medium bg-white border border-[#E0DED9] hover:border-[#1A1918] rounded-xl transition-colors flex items-center gap-1.5 whitespace-nowrap flex-shrink-0">
+                                <i class="fa-regular fa-bookmark text-xs"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ─── SECTION: GRADE CALCULATOR ────────────────────── -->
+            <section id="section-calculate" class="absolute inset-0 hidden flex-col overflow-hidden">
+
+                <!-- Fixed header -->
+                <div class="flex-shrink-0 flex items-center justify-between px-5 sm:px-8 pt-4 pb-3 border-b border-[#ECEAE5] bg-[#FAFAF7]">
+                    <h2 class="font-semibold text-[#1A1918] text-sm">Grade Calculator</h2>
+                    <button id="btn-add-course"
+                        class="flex items-center gap-1.5 text-xs font-medium text-[#6B6965] hover:text-[#1A1918] px-3 py-1.5 border border-[#E0DED9] bg-white rounded-lg hover:border-[#1A1918] transition-all">
+                        <i class="fa-solid fa-plus text-[10px]"></i> Add Course
+                    </button>
+                </div>
+
+                <!-- Fixed column headers -->
+                <div class="flex-shrink-0 grid grid-cols-12 gap-2 px-5 sm:px-8 py-2 text-[9px] font-semibold text-[#C8C6C2] uppercase tracking-[0.14em] bg-[#FAFAF7]">
+                    <div class="col-span-5 sm:col-span-6">Course</div>
+                    <div class="col-span-3 text-center">Credits</div>
+                    <div class="col-span-3 sm:col-span-2 text-center">Grade</div>
+                    <div class="col-span-1"></div>
+                </div>
+
+                <!-- Scrollable course list -->
+                <div class="flex-1 overflow-y-auto custom-scrollbar min-h-0 px-5 sm:px-8">
+                    <div id="course-list" class="space-y-2 py-2">
+                        <!-- Default course row -->
+                        <div class="course-item grid grid-cols-12 gap-2 items-center">
+                            <div class="col-span-5 sm:col-span-6">
+                                <input type="text" class="course-name w-full px-2.5 py-2 text-sm bg-white border border-[#ECEAE5] rounded-lg focus:border-[#1A1918] focus:ring-1 focus:ring-[#1A1918]/10 outline-none placeholder:text-[#D6D4D0] transition-colors" placeholder="Subject">
+                            </div>
+                            <div class="col-span-3">
+                                <input type="number" min="0" step="1" class="course-credit w-full px-2 py-2 text-sm text-center bg-white border border-[#ECEAE5] rounded-lg focus:border-[#1A1918] focus:ring-1 focus:ring-[#1A1918]/10 outline-none placeholder:text-[#D6D4D0] transition-colors" placeholder="Cr">
+                            </div>
+                            <div class="col-span-3 sm:col-span-2 relative">
+                                <select class="course-grade w-full pl-2 pr-6 py-2 text-sm bg-white border border-[#ECEAE5] rounded-lg focus:border-[#1A1918] outline-none appearance-none cursor-pointer text-[#1A1918] transition-colors">
+                                    <option value="" disabled selected>—</option>
+                                    <option value="AA">AA</option>
+                                    <option value="AB">AB</option>
+                                    <option value="BB">BB</option>
+                                    <option value="BC">BC</option>
+                                    <option value="CC">CC</option>
+                                    <option value="CD">CD</option>
+                                    <option value="DD">DD</option>
+                                    <option value="FF">FF</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center text-[#C8C6C2]">
+                                    <i class="fa-solid fa-chevron-down text-[8px]"></i>
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex justify-center">
+                                <button class="btn-remove-course text-[#D6D4D0] hover:text-red-400 transition-colors p-1">
+                                    <i class="fa-solid fa-xmark text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fixed footer: button + result + save -->
+                <div class="flex-shrink-0 border-t border-[#ECEAE5] bg-[#FAFAF7] px-5 sm:px-8 pt-3 pb-4 space-y-3">
+                    <button id="btn-calculate"
+                        class="w-full bg-[#1A1918] hover:bg-[#2C2A28] active:scale-[0.99] text-white font-medium py-2.5 rounded-xl text-sm transition-all shadow-sm">
+                        Calculate GPA
+                    </button>
+                    <div id="calc-result-container" class="hidden space-y-3">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="result-chip">
+                                <p class="text-[9px] text-[#C8C6C2] uppercase tracking-widest mb-1">GPA</p>
+                                <p id="calc-gpa-value" class="text-xl font-playfair text-[#1A1918]">—</p>
+                            </div>
+                            <div class="result-chip">
+                                <p class="text-[9px] text-[#C8C6C2] uppercase tracking-widest mb-1">EGP</p>
+                                <p id="calc-total-egp" class="text-xl font-playfair text-[#1A1918]">—</p>
+                            </div>
+                            <div class="result-chip">
+                                <p class="text-[9px] text-[#C8C6C2] uppercase tracking-widest mb-1">%</p>
+                                <p id="calc-percentage-value" class="text-xl font-playfair text-[#1A1918]">—</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <input type="text" id="save-name-calc"
+                                class="flex-1 min-w-0 px-3 py-2 text-sm bg-white border border-[#E0DED9] rounded-xl focus:border-[#1A1918] focus:ring-1 focus:ring-[#1A1918]/20 outline-none placeholder:text-[#C8C6C2]"
+                                placeholder="Label — e.g. Semester 2">
+                            <button id="btn-save-calc"
+                                class="px-4 py-2 text-sm font-medium bg-white border border-[#E0DED9] hover:border-[#1A1918] rounded-xl transition-colors flex items-center gap-1.5 whitespace-nowrap flex-shrink-0">
+                                <i class="fa-regular fa-bookmark text-xs"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                    <span id="calc-total-credits" class="hidden"></span>
+                </div>
+            </section>
+
+            <!-- ─── SECTION: CGPA COMBINER ─────────────────────── -->
+            <section id="section-cgpa" class="absolute inset-0 hidden flex-col overflow-hidden">
+
+                <!-- Fixed header -->
+                <div class="flex-shrink-0 px-5 sm:px-8 pt-4 pb-3 border-b border-[#ECEAE5] bg-[#FAFAF7]">
+                    <h2 class="font-semibold text-[#1A1918] text-sm">CGPA Combiner</h2>
+                    <p class="text-xs text-[#8C8984] mt-0.5">Select saved semesters to compute cumulative GPA</p>
+                </div>
+
+                <!-- Scrollable semester list -->
+                <div class="flex-1 overflow-y-auto custom-scrollbar min-h-0 px-5 sm:px-8 py-3">
+                    <div id="cgpa-semester-list">
+                        <div class="flex flex-col items-center justify-center py-12 text-center">
+                            <i class="fa-solid fa-layer-group text-3xl text-[#DEDAD6] mb-3"></i>
+                            <p class="text-sm text-[#C8C6C2] italic">No semester records yet.</p>
+                            <p class="text-xs text-[#C8C6C2] mt-1">Calculate and save from the Grade Calc tab first.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fixed footer: live result + save -->
+                <div class="flex-shrink-0 border-t border-[#ECEAE5] bg-[#FAFAF7] px-5 sm:px-8 pt-3 pb-4 space-y-3">
+                    <p id="cgpa-no-selection" class="text-xs text-[#C8C6C2] text-center py-1">Select semesters above to see combined CGPA</p>
+                    <div id="cgpa-result-container" class="hidden space-y-3">
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="result-chip">
+                                <p class="text-[9px] text-[#C8C6C2] uppercase tracking-widest mb-1">CGPA</p>
+                                <p id="cgpa-value" class="text-xl font-playfair text-[#1A1918]">—</p>
+                            </div>
+                            <div class="result-chip">
+                                <p class="text-[9px] text-[#C8C6C2] uppercase tracking-widest mb-1">Credits</p>
+                                <p id="cgpa-total-credits" class="text-xl font-playfair text-[#1A1918]">—</p>
+                            </div>
+                            <div class="result-chip">
+                                <p class="text-[9px] text-[#C8C6C2] uppercase tracking-widest mb-1">%</p>
+                                <p id="cgpa-percentage" class="text-xl font-playfair text-[#1A1918]">—</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <input type="text" id="save-name-cgpa"
+                                class="flex-1 min-w-0 px-3 py-2 text-sm bg-white border border-[#E0DED9] rounded-xl focus:border-[#1A1918] focus:ring-1 focus:ring-[#1A1918]/20 outline-none placeholder:text-[#C8C6C2]"
+                                placeholder="Label — e.g. Year 1 CGPA">
+                            <button id="btn-save-cgpa"
+                                class="px-4 py-2 text-sm font-medium bg-white border border-[#E0DED9] hover:border-[#1A1918] rounded-xl transition-colors flex items-center gap-1.5 whitespace-nowrap flex-shrink-0">
+                                <i class="fa-regular fa-bookmark text-xs"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Mobile Bottom Bar (hidden on desktop) -->
+        <div class="lg:hidden flex-shrink-0 border-t border-[#ECEAE5] bg-white flex items-center gap-2 px-4 py-2.5">
+            <a href="history.html"
+                class="flex-1 flex items-center justify-center gap-2 py-2 bg-[#F5F4F0] hover:bg-[#EEECE7] rounded-lg text-xs font-medium text-[#1A1918] transition-colors">
+                <i class="fa-regular fa-clock text-[#8C8984]"></i> Records
+                <span id="saved-count-mobile" class="badge" style="width:16px;height:16px;font-size:8px;">0</span>
+            </a>
+            <button id="btn-toggle-ref"
+                class="flex-1 flex items-center justify-center gap-2 py-2 bg-[#F5F4F0] hover:bg-[#EEECE7] rounded-lg text-xs font-medium text-[#1A1918] transition-colors">
+                <i class="fa-solid fa-table-list text-[#8C8984]" id="ref-icon"></i> Reference
+            </button>
+        </div>
+
+        <!-- Mobile Reference Drawer (hidden on desktop) -->
+        <div id="mobile-ref-drawer" class="hidden lg:hidden flex-shrink-0 bg-white border-t border-[#ECEAE5] px-4 py-4 overflow-y-auto custom-scrollbar" style="max-height:230px;">
+            <div class="grid grid-cols-2 gap-4 text-[10px]">
+                <div>
+                    <p class="text-[8px] font-semibold text-[#C8C6C2] uppercase tracking-[0.2em] mb-2">Formulas</p>
+                    <div class="flex justify-between py-1 border-b border-[#F8F7F4]"><span class="text-[#8C8984]">SGPA/CGPA</span><span class="font-playfair italic">EGP/ΣCr</span></div>
+                    <div class="flex justify-between py-1 border-b border-[#F8F7F4]"><span class="text-[#8C8984]">EGP</span><span class="font-playfair italic">Σ(Cr×GP)</span></div>
+                    <div class="flex justify-between py-1"><span class="text-[#8C8984]">%</span><span class="font-playfair italic">(GPA−0.75)×10</span></div>
+                </div>
+                <div>
+                    <p class="text-[8px] font-semibold text-[#C8C6C2] uppercase tracking-[0.2em] mb-2">Grade Scale</p>
+                    <div class="grid grid-cols-4 gap-1">
+                        <div class="grade-chip"><span class="font-semibold text-[#1A1918]">AA</span><span class="text-[#A8A5A0]">10</span></div>
+                        <div class="grade-chip"><span class="font-semibold text-[#1A1918]">AB</span><span class="text-[#A8A5A0]">9</span></div>
+                        <div class="grade-chip"><span class="font-semibold text-[#1A1918]">BB</span><span class="text-[#A8A5A0]">8</span></div>
+                        <div class="grade-chip"><span class="font-semibold text-[#1A1918]">BC</span><span class="text-[#A8A5A0]">7</span></div>
+                        <div class="grade-chip"><span class="font-semibold text-[#1A1918]">CC</span><span class="text-[#A8A5A0]">6</span></div>
+                        <div class="grade-chip"><span class="font-semibold text-[#1A1918]">CD</span><span class="text-[#A8A5A0]">5</span></div>
+                        <div class="grade-chip"><span class="font-semibold text-[#1A1918]">DD</span><span class="text-[#A8A5A0]">4</span></div>
+                        <div class="grade-chip"><span class="font-semibold text-red-400">FF</span><span class="text-[#C8C6C2]">0</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /center -->
+
+    <!-- ════════════════════════════════════════════════════════
+         RIGHT COLUMN — Reference (desktop only, hidden on mobile)
+    ════════════════════════════════════════════════════════════ -->
+    <aside class="hidden lg:flex flex-col w-56 xl:w-64 flex-shrink-0 border-l border-[#ECEAE5] bg-white overflow-hidden">
+
+        <div class="px-4 pt-5 pb-3 border-b border-[#F0EEE9] flex-shrink-0">
+            <span class="text-[10px] font-semibold text-[#C8C6C2] uppercase tracking-[0.15em]">Reference</span>
+        </div>
+
+        <!-- All reference content — no scroll needed at typical viewport heights -->
+        <div class="flex-1 px-4 py-4 space-y-4 overflow-y-auto custom-scrollbar min-h-0">
+
+            <!-- Formulas -->
+            <div>
+                <p class="text-[10px] font-semibold text-[#C8C6C2] uppercase tracking-[0.15em] mb-2">Formulas</p>
+                <div class="text-xs space-y-0">
+                    <div class="flex justify-between items-center py-1.5 border-b border-[#F8F7F4]">
+                        <span class="text-[#8C8984]">SGPA / CGPA</span>
+                        <span class="font-playfair italic text-[#1A1918]">EGP / ΣCr</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1.5 border-b border-[#F8F7F4]">
+                        <span class="text-[#8C8984]">EGP</span>
+                        <span class="font-playfair italic text-[#1A1918]">Σ(Cr × GP)</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1.5">
+                        <span class="text-[#8C8984]">% Equiv.</span>
+                        <span class="font-playfair italic text-[#1A1918]">(GPA−0.75)×10</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grade Scale — 4-col chips, compact -->
+            <div>
+                <p class="text-[10px] font-semibold text-[#C8C6C2] uppercase tracking-[0.15em] mb-2">Grade Scale</p>
+                <div class="grid grid-cols-4 gap-1">
+                    <div class="grade-chip"><span class="font-semibold text-[#1A1918]">AA</span><span class="text-[#A8A5A0]">10</span></div>
+                    <div class="grade-chip"><span class="font-semibold text-[#1A1918]">AB</span><span class="text-[#A8A5A0]">9</span></div>
+                    <div class="grade-chip"><span class="font-semibold text-[#1A1918]">BB</span><span class="text-[#A8A5A0]">8</span></div>
+                    <div class="grade-chip"><span class="font-semibold text-[#1A1918]">BC</span><span class="text-[#A8A5A0]">7</span></div>
+                    <div class="grade-chip"><span class="font-semibold text-[#1A1918]">CC</span><span class="text-[#A8A5A0]">6</span></div>
+                    <div class="grade-chip"><span class="font-semibold text-[#1A1918]">CD</span><span class="text-[#A8A5A0]">5</span></div>
+                    <div class="grade-chip"><span class="font-semibold text-[#1A1918]">DD</span><span class="text-[#A8A5A0]">4</span></div>
+                    <div class="grade-chip"><span class="font-semibold text-red-400">FF</span><span class="text-[#C8C6C2]">0</span></div>
+                </div>
+            </div>
+
+            <!-- GPA → % Quick Reference -->
+            <div>
+                <p class="text-[10px] font-semibold text-[#C8C6C2] uppercase tracking-[0.15em] mb-2">GPA → %</p>
+                <div class="text-xs space-y-0">
+                    <div class="flex justify-between py-1.5 border-b border-[#F8F7F4]"><span class="font-playfair text-[#1A1918]">6.25</span><span class="text-[#8C8984]">55%</span></div>
+                    <div class="flex justify-between py-1.5 border-b border-[#F8F7F4]"><span class="font-playfair text-[#1A1918]">6.75</span><span class="text-[#8C8984]">60%</span></div>
+                    <div class="flex justify-between py-1.5 border-b border-[#F8F7F4]"><span class="font-playfair text-[#1A1918]">7.25</span><span class="text-[#8C8984]">65%</span></div>
+                    <div class="flex justify-between py-1.5 border-b border-[#F8F7F4]"><span class="font-playfair text-[#1A1918]">7.75</span><span class="text-[#8C8984]">70%</span></div>
+                    <div class="flex justify-between py-1.5"><span class="font-playfair text-[#1A1918]">8.25</span><span class="text-[#8C8984]">75%</span></div>
+                </div>
+            </div>
+
+        </div>
+    </aside>
+
+</div><!-- /app-shell -->
+
+<script src="script.js"></script>
+</body>
+</html>
