@@ -405,23 +405,26 @@
     </div>
 </div>
 
-<!-- Appreciation Modal -->
-<div id="appreciation-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden">
-    <div class="absolute inset-0 bg-[#1A1918]/20 backdrop-blur-[2px]" id="appreciation-modal-bg"></div>
-    <div class="relative bg-white rounded-xl shadow-lg border border-[#ECEAE5] w-11/12 max-w-xs p-6 fade-up text-center">
-        <div class="w-12 h-12 bg-[#F5F4F0] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#ECEAE5]">
-            <i class="fa-solid fa-heart text-red-400 text-xl"></i>
-        </div>
-        <h3 class="text-base font-playfair font-semibold text-[#1A1918] mb-2">Enjoying GradeMaster?</h3>
-        <p class="text-[11px] text-[#8C8984] mb-6 leading-relaxed">If this tool saved you some time, I'd really appreciate your support! Check out my portfolio and give me a follow.</p>
-        <div class="flex flex-col gap-2">
-            <a href="https://rutwik-m.is-a.dev/" target="_blank" id="btn-support-follow" class="w-full py-2.5 text-xs font-medium text-white bg-[#1A1918] rounded-lg shadow-sm hover:bg-black transition-colors block">
-                Support & Follow
-            </a>
-            <button id="btn-support-later" class="w-full py-2 text-xs font-medium text-[#6B6965] hover:text-[#1A1918] bg-transparent hover:bg-[#F5F4F0] rounded-lg transition-colors">
-                Maybe Later
+<!-- Appreciation Toast -->
+<div id="appreciation-modal" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[100] hidden">
+    <div class="bg-white rounded-xl shadow-xl shadow-black/5 border border-[#ECEAE5] w-[280px] p-4 fade-up flex flex-col gap-3">
+        <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-[#F5F4F0] rounded-full flex items-center justify-center border border-[#ECEAE5] flex-shrink-0">
+                    <i class="fa-solid fa-heart text-red-400 text-xs"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-playfair font-semibold text-[#1A1918]">Enjoying GradeMaster?</h3>
+                    <p class="text-[10px] text-[#8C8984] mt-0.5 leading-snug">I'd appreciate your support!</p>
+                </div>
+            </div>
+            <button id="btn-support-later" class="text-[#C8C6C2] hover:text-[#1A1918] transition-colors p-1 -mt-1 -mr-1">
+                <i class="fa-solid fa-xmark text-xs"></i>
             </button>
         </div>
+        <a href="https://rutwik-m.is-a.dev/" target="_blank" id="btn-support-follow" class="w-full py-2 text-[11px] font-medium text-center text-[#1A1918] bg-[#F5F4F0] hover:bg-[#EEECE7] border border-[#ECEAE5] rounded-lg transition-colors block">
+            Visit my Portfolio
+        </a>
     </div>
 </div>
 

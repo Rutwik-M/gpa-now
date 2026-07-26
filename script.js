@@ -137,9 +137,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         modal.classList.add('hidden');
                         localStorage.setItem('hasSeenAppreciation', 'true');
                     };
-                    document.getElementById('btn-support-later').onclick = close;
-                    document.getElementById('btn-support-follow').onclick = close;
-                    document.getElementById('appreciation-modal-bg').onclick = close;
+                    const laterBtn = document.getElementById('btn-support-later');
+                    if (laterBtn) laterBtn.onclick = close;
+                    const followBtn = document.getElementById('btn-support-follow');
+                    if (followBtn) followBtn.onclick = close;
                 }
             }, 800); // 800ms delay after conversion
         }
