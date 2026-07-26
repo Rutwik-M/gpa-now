@@ -41,37 +41,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Main row
             const row = document.createElement('div');
-            row.className = 'grid grid-cols-12 gap-2 items-center px-5 py-3 record-row';
+            row.className = 'flex flex-col sm:grid sm:grid-cols-12 gap-3 sm:gap-2 items-start sm:items-center px-4 sm:px-5 py-4 sm:py-3 record-row';
             row.innerHTML = `
-                <!-- Expand chevron -->
-                <div class="col-span-1 flex justify-center">
+                <!-- Mobile Top Row: Name, Date, Delete -->
+                <div class="flex sm:hidden w-full items-start justify-between">
+                    <div class="min-w-0 flex-1 pr-2">
+                        <p class="text-sm font-medium text-[#1A1918] truncate leading-tight">${record.name}</p>
+                        <p class="text-[9px] text-[#C8C6C2] mt-0.5">${record.date}</p>
+                    </div>
+                    <div class="flex items-center gap-1 flex-shrink-0">
+                        ${isExpandable
+                            ? `<button class="expand-btn text-[#C8C6C2] hover:text-[#1A1918] transition-colors p-2 -mr-1">
+                                   <i class="fa-solid fa-chevron-right text-[10px] transition-transform duration-200"></i>
+                               </button>`
+                            : ``}
+                        <button class="del-btn text-[#D6D4D0] hover:text-red-400 transition-colors p-2 -mr-2">
+                            <i class="fa-regular fa-trash-can text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Desktop Expand chevron -->
+                <div class="hidden sm:flex col-span-1 justify-center">
                     ${isExpandable
                         ? `<button class="expand-btn text-[#C8C6C2] hover:text-[#1A1918] transition-colors p-1">
                                <i class="fa-solid fa-chevron-right text-[9px] transition-transform duration-200"></i>
                            </button>`
                         : `<span class="w-5 h-5"></span>`}
                 </div>
-                <!-- Name + date -->
-                <div class="col-span-4 min-w-0">
+                <!-- Desktop Name + date -->
+                <div class="hidden sm:block col-span-4 min-w-0">
                     <p class="text-sm font-medium text-[#1A1918] truncate">${record.name}</p>
                     <p class="text-[9px] text-[#C8C6C2] mt-0.5">${record.date}</p>
                 </div>
-                <!-- Type badge -->
-                <div class="col-span-2 flex justify-center">
-                    <span class="inline-flex items-center gap-1 text-[9px] font-semibold px-2 py-0.5 rounded-full bg-[#F5F4F0] border border-[#ECEAE5] ${meta.color}">
-                        <i class="${meta.icon} text-[8px]"></i> ${meta.label}
-                    </span>
+
+                <!-- Mobile & Desktop Metrics Container -->
+                <div class="w-full flex sm:contents items-center justify-between sm:justify-start bg-[#F8F7F4] sm:bg-transparent rounded-lg p-2 sm:p-0 mt-1 sm:mt-0 border border-[#ECEAE5] sm:border-0">
+                    <!-- Type badge -->
+                    <div class="sm:col-span-2 flex justify-start sm:justify-center">
+                        <span class="inline-flex items-center gap-1 text-[9px] font-semibold px-2 py-0.5 rounded-full sm:bg-[#F5F4F0] sm:border sm:border-[#ECEAE5] ${meta.color}">
+                            <i class="${meta.icon} text-[8px]"></i> ${meta.label}
+                        </span>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 sm:contents">
+                        <!-- GPA -->
+                        <div class="sm:col-span-2 text-right sm:text-center">
+                            <p class="text-sm font-playfair font-medium text-[#1A1918]">${record.gpa}</p>
+                        </div>
+                        <!-- % -->
+                        <div class="sm:col-span-2 text-right sm:text-center">
+                            <span class="inline-block text-xs font-medium text-[#6B6965] bg-white sm:bg-[#F5F4F0] border border-[#ECEAE5] px-2 py-0.5 rounded-md shadow-sm sm:shadow-none">${record.percentage}%</span>
+                        </div>
+                    </div>
                 </div>
-                <!-- GPA -->
-                <div class="col-span-2 text-center">
-                    <p class="text-sm font-playfair font-medium text-[#1A1918]">${record.gpa}</p>
-                </div>
-                <!-- % -->
-                <div class="col-span-2 text-center">
-                    <span class="inline-block text-xs font-medium text-[#6B6965] bg-[#F5F4F0] border border-[#ECEAE5] px-2 py-0.5 rounded-md">${record.percentage}%</span>
-                </div>
-                <!-- Delete -->
-                <div class="col-span-1 flex justify-end">
+
+                <!-- Desktop Delete -->
+                <div class="hidden sm:flex col-span-1 justify-end">
                     <button class="del-btn text-[#D6D4D0] hover:text-red-400 transition-colors p-1">
                         <i class="fa-regular fa-trash-can text-xs"></i>
                     </button>
@@ -130,20 +156,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Wire expand toggle
             if (isExpandable) {
-                const expandBtn = row.querySelector('.expand-btn');
-                const chevron   = expandBtn.querySelector('i');
-                expandBtn.addEventListener('click', () => {
-                    const isOpen = detail.classList.toggle('hidden');
-                    chevron.style.transform = isOpen ? '' : 'rotate(90deg)';
+                row.querySelectorAll('.expand-btn').forEach(expandBtn => {
+                    const chevron = expandBtn.querySelector('i');
+                    if (!chevron) return;
+                    expandBtn.addEventListener('click', () => {
+                        const isOpen = detail.classList.toggle('hidden');
+                        // Update all chevrons in the row so they sync up
+                        row.querySelectorAll('.expand-btn i').forEach(c => {
+                            c.style.transform = isOpen ? '' : 'rotate(90deg)';
+                        });
+                    });
                 });
             }
 
             // Wire delete
-            row.querySelector('.del-btn').addEventListener('click', () => {
-                window.showConfirm('Delete Record', 'Are you sure you want to delete this record?', (confirmed) => {
-                    if (!confirmed) return;
-                    setRecords(getRecords().filter(r => r.id !== record.id));
-                    loadHistory();
+            row.querySelectorAll('.del-btn').forEach(delBtn => {
+                delBtn.addEventListener('click', () => {
+                    window.showConfirm('Delete Record', 'Are you sure you want to delete this record?', (confirmed) => {
+                        if (!confirmed) return;
+                        setRecords(getRecords().filter(r => r.id !== record.id));
+                        loadHistory();
+                    });
                 });
             });
 
