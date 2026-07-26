@@ -11,6 +11,6 @@ My friends and I had a problem converting SGPA, CGPA, etc., so I made this simpl
 ## How to use locally
 Just clone this repo and open `index.html` in your browser. No setup required!
 ```bash
-git clone https://github.com/Rutwik-M/easy-gpa.git
-cd easy-gpa
+git clone https://github.com/Rutwik-M/gpa-now.git
+cd gpa-now
 ```
