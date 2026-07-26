@@ -11,6 +11,13 @@ html, body { height: 100%; overflow: hidden; }
 .font-playfair { font-family: 'Playfair Display', serif; }
 .font-dm-sans  { font-family: 'DM Sans', sans-serif; }
 
+/* Custom Save Button Feedback */
+.btn-saved {
+    background: #1A1918 !important;
+    color: #ffffff !important;
+    border-color: #1A1918 !important;
+}
+
 .paper-card {
     background: #ffffff;
     border: 1px solid #ECEAE5;

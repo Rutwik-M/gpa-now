@@ -445,10 +445,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Button feedback
         const origHTML = saveBtn.innerHTML;
         saveBtn.innerHTML = '<i class="fa-solid fa-check text-xs"></i> Saved!';
-        saveBtn.classList.add('bg-[#1A1918]', 'text-white', 'border-[#1A1918]');
+        saveBtn.classList.add('btn-saved');
         setTimeout(() => {
             saveBtn.innerHTML = origHTML;
-            saveBtn.classList.remove('bg-[#1A1918]', 'text-white', 'border-[#1A1918]');
+            saveBtn.classList.remove('btn-saved');
         }, 1800);
 
         loadSidebarRecords();
@@ -503,10 +503,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    window.showConfirm = (title, desc, callback) => {
+        const modal = document.getElementById('confirm-modal');
+        if (!modal) return callback(confirm(desc));
+        
+        document.getElementById('confirm-modal-title').textContent = title;
+        document.getElementById('confirm-modal-desc').textContent = desc;
+        modal.classList.remove('hidden');
+        
+        const btnOk = document.getElementById('confirm-modal-ok');
+        const btnCancel = document.getElementById('confirm-modal-cancel');
+        const bg = document.getElementById('confirm-modal-bg');
+        
+        const cleanup = () => {
+            modal.classList.add('hidden');
+            btnOk.replaceWith(btnOk.cloneNode(true));
+            btnCancel.replaceWith(btnCancel.cloneNode(true));
+            bg.replaceWith(bg.cloneNode(true));
+        };
+        
+        document.getElementById('confirm-modal-ok').addEventListener('click', () => { cleanup(); callback(true); });
+        document.getElementById('confirm-modal-cancel').addEventListener('click', () => { cleanup(); callback(false); });
+        document.getElementById('confirm-modal-bg').addEventListener('click', () => { cleanup(); callback(false); });
+    };
+
     window.deleteRecord = (id) => {
-        if (!confirm('Delete this record?')) return;
-        setRecords(getRecords().filter(r => r.id !== id));
-        loadSidebarRecords();
+        window.showConfirm('Delete Record', 'Are you sure you want to delete this record?', (confirmed) => {
+            if (!confirmed) return;
+            setRecords(getRecords().filter(r => r.id !== id));
+            loadSidebarRecords();
+        });
     };
 
     //  MOBILE REFERENCE DRAWER TOGGLE
