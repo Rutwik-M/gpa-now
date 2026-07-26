@@ -12,33 +12,29 @@
     <meta property="og:title" content="GradeMaster — CGPA & SGPA Calculator">
     <meta property="og:description" content="Elegant CGPA and SGPA calculator with percentage conversion, semester records, and CGPA combiner.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="/favicon.png">
+    <meta property="og:image" content="/static/web-app-manifest-512x512.png">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="GradeMaster — CGPA & SGPA Calculator">
     <meta name="twitter:description" content="Elegant CGPA and SGPA calculator with percentage conversion, semester records, and CGPA combiner.">
-    <meta name="twitter:image" content="/favicon.png">
+    <meta name="twitter:image" content="/static/web-app-manifest-512x512.png">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="apple-touch-icon" href="/favicon.png">
+    <link rel="icon" type="image/png" href="/static/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="GradeMaster">
+    <link rel="manifest" href="/static/site.webmanifest">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="h-full bg-[#FAFAF7] text-[#1A1918] font-dm-sans antialiased">
+<body class="h-full bg-[#FAFAF7] text-[#1A1918] font-dm-sans antialiased flex flex-col">
 
-<!-- ╔══════════════════════════════════════════════════════════════╗
-     ║  3-COLUMN SHELL: Left nav | Center calc | Right reference   ║
-     ╚══════════════════════════════════════════════════════════════╝ -->
-<div class="h-full flex flex-col lg:flex-row">
-
-    <!-- ════════════════════════════════════════════════════════
-         LEFT SIDEBAR — Logo · Navigation · Recent Records
-         (hidden on mobile, shown on desktop)
-    ════════════════════════════════════════════════════════════ -->
+<div class="flex-1 flex flex-col lg:flex-row overflow-hidden">
     <aside class="hidden lg:flex flex-col w-56 xl:w-64 flex-shrink-0 border-r border-[#ECEAE5] bg-white overflow-hidden">
 
         <!-- Logo -->
@@ -75,16 +71,7 @@
                 <p class="text-[10px] text-[#C8C6C2] italic py-4 text-center">No saved records.</p>
             </div>
         </div>
-
-        <!-- Desktop Footer -->
-        <div class="p-3 border-t border-[#F0EEE9] flex-shrink-0 text-center">
-            <p class="text-[10px] text-[#8C8984]">Made with ❤️ by <a href="https://rutwik-m.is-a.dev/" target="_blank" class="font-semibold text-[#1A1918] hover:underline">Rutwik M</a></p>
-        </div>
     </aside>
-
-    <!-- ════════════════════════════════════════════════════════
-         CENTER — Calculator Sections (full width on mobile)
-    ════════════════════════════════════════════════════════════ -->
     <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
 
         <!-- Mobile Header (hidden on desktop) -->
@@ -308,9 +295,6 @@
                     <i class="fa-solid fa-table-list text-[#8C8984]" id="ref-icon"></i> Reference
                 </button>
             </div>
-            <div class="pb-2 text-center">
-                <p class="text-[9px] text-[#8C8984]">Made with ❤️ by <a href="https://rutwik-m.is-a.dev/" target="_blank" class="font-semibold text-[#1A1918] hover:underline">Rutwik M</a></p>
-            </div>
         </div>
 
         <!-- Mobile Reference Drawer (hidden on desktop) -->
@@ -401,6 +385,11 @@
     </aside>
 
 </div><!-- /app-shell -->
+
+<!-- Global Footer -->
+<footer class="w-full border-t border-[#F0EEE9] bg-white py-2 flex-shrink-0 text-center z-50">
+    <p class="text-[10px] text-[#8C8984]">Made with ❤️ by <a href="https://rutwik-m.is-a.dev/" target="_blank" class="font-semibold text-[#1A1918] hover:underline">Rutwik M</a></p>
+</footer>
 
 <script src="script.js"></script>
 </body>
