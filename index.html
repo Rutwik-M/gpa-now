@@ -75,6 +75,11 @@
                 <p class="text-[10px] text-[#C8C6C2] italic py-4 text-center">No saved records.</p>
             </div>
         </div>
+
+        <!-- Desktop Footer -->
+        <div class="p-3 border-t border-[#F0EEE9] flex-shrink-0 text-center">
+            <p class="text-[10px] text-[#8C8984]">Made with ❤️ by <a href="https://rutwik-m.is-a.dev/" target="_blank" class="font-semibold text-[#1A1918] hover:underline">Rutwik M</a></p>
+        </div>
     </aside>
 
     <!-- ════════════════════════════════════════════════════════
@@ -291,16 +296,21 @@
         </div>
 
         <!-- Mobile Bottom Bar (hidden on desktop) -->
-        <div class="lg:hidden flex-shrink-0 border-t border-[#ECEAE5] bg-white flex items-center gap-2 px-4 py-2.5">
-            <a href="history.html"
-                class="flex-1 flex items-center justify-center gap-2 py-2 bg-[#F5F4F0] hover:bg-[#EEECE7] rounded-lg text-xs font-medium text-[#1A1918] transition-colors">
-                <i class="fa-regular fa-clock text-[#8C8984]"></i> Records
-                <span id="saved-count-mobile" class="badge" style="width:16px;height:16px;font-size:8px;">0</span>
-            </a>
-            <button id="btn-toggle-ref"
-                class="flex-1 flex items-center justify-center gap-2 py-2 bg-[#F5F4F0] hover:bg-[#EEECE7] rounded-lg text-xs font-medium text-[#1A1918] transition-colors">
-                <i class="fa-solid fa-table-list text-[#8C8984]" id="ref-icon"></i> Reference
-            </button>
+        <div class="lg:hidden flex-shrink-0 border-t border-[#ECEAE5] bg-white flex flex-col">
+            <div class="flex items-center gap-2 px-4 py-2.5">
+                <a href="history.html"
+                    class="flex-1 flex items-center justify-center gap-2 py-2 bg-[#F5F4F0] hover:bg-[#EEECE7] rounded-lg text-xs font-medium text-[#1A1918] transition-colors">
+                    <i class="fa-regular fa-clock text-[#8C8984]"></i> Records
+                    <span id="saved-count-mobile" class="badge" style="width:16px;height:16px;font-size:8px;">0</span>
+                </a>
+                <button id="btn-toggle-ref"
+                    class="flex-1 flex items-center justify-center gap-2 py-2 bg-[#F5F4F0] hover:bg-[#EEECE7] rounded-lg text-xs font-medium text-[#1A1918] transition-colors">
+                    <i class="fa-solid fa-table-list text-[#8C8984]" id="ref-icon"></i> Reference
+                </button>
+            </div>
+            <div class="pb-2 text-center">
+                <p class="text-[9px] text-[#8C8984]">Made with ❤️ by <a href="https://rutwik-m.is-a.dev/" target="_blank" class="font-semibold text-[#1A1918] hover:underline">Rutwik M</a></p>
+            </div>
         </div>
 
         <!-- Mobile Reference Drawer (hidden on desktop) -->
